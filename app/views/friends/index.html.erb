@@ -1,0 +1,45 @@
+
+<% if user_signed_in? %>
+
+  <h1>Contact List</h1>
+
+  <table class="table table-striped table-bordered">
+    <thead class="table-dark">
+      <tr>
+        <th>Name</th>
+       
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Linkedin</th>
+        <th>Address</th>
+        <th> </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @friends.each do |friend| %>
+        <% if friend.user == current_user %>
+          <tr>
+            <td class="table-secondary"> <%= link_to friend.first_name + ' ' + friend.last_name, friend, class: "link-underline link-underline-opacity-0" %>
+            </td>
+
+
+    
+            <td class="table-secondary"><%= friend.email %></td>
+            <td class="table-secondary"><%= friend.phone %></td>
+            <td class="table-secondary"><%= friend.linkedin %></td>
+            <td class="table-secondary"><%= friend.address %></td>
+            <td class="table-secondary"><%= link_to 'Delete Contact', friend, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-sm btn-danger" %></td>
+          </tr>
+        <%end %>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br>
+
+  <%= link_to 'Create New Contact', new_friend_path, class:"btn btn-dark" %>
+
+<% else %>
+<%= render "home/title" %>
+<% end %>
